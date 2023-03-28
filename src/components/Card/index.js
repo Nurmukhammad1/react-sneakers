@@ -1,24 +1,26 @@
 import React from "react";
+import cardStyles from './Card.module.scss';
 
- function  Card (){
+
+ function  Card (props){
     return (
-      <div className="card">
-        <div className="favorite">
+      <div className={cardStyles.card}>
+        <div className={cardStyles.favorite}>
           <img src="/img/unliked.svg" alt="unliked" />
         </div>
         <img
           width={133}
           height={112}
-          src="/img/sneakers/1.jpg"
+          src={props.imageUrl}
           alt="Sneakers"
         />
-        <p>Мужские кроссовки Nike Blazer Mid Suede</p>
+        <h5>{props.title}</h5>
         <div className="d-flex justify-between align-center">
           <div className="d-flex flex-column ">
             <span>Цена:</span>
-            <b>12 990 руб.</b>
+            <b>{props.price} руб.</b>
           </div>
-          <button>
+          <button className="button" onClick={props.onClick}>
             <img width={11} height={11} src="/img/plus.svg" alt="Plus" />
           </button>
         </div>

@@ -1,22 +1,34 @@
 import React from "react";
 import Card from './components/Card';
 import Header from './components/Header';
-//  import Drawer from './components/Drawer';
+import Drawer from './components/Drawer';
 
 
-const arr = [
-  {title: "Мужские кроссовки Nike Blazer Mid Suede", price: 12999,imageUrl:'/img/sneakers/1.jpg'},
-  {title: "Мужские кроссовки Nike Air Max 270", price: 16500, imageUrl:'/img/sneakers/2.jpg' },
-  {title: "Мужские кроссовки Nike Air Blazer Mid Suede", price: 17500, imageUrl:'/img/sneakers/3.jpg'},
-  {title: "Кроссовки Puma X Aka Boku Future Rider", price: 15500, imageUrl:'/img/sneakers/4.jpg'},
-]
 
 
 function App() {
-  return (
+  const [items, setItems] = React.useState([]);
+  const [cartItems, setCartItems] = React.useState([]);
+  const  [cartOpened, setCartOpened] = React.useState(false);
+
+ React.useEffect(() => {
+   fetch("https://6426bee5d24d7e0de4772a40.mockapi.io/items")
+     .then((res) => {
+       return res.json();
+     })
+     .then((json) => {
+       setItems(json);
+     });
+ }, []);
+
+const onAddToCart = (obj) =>{
+  setCartItems(prev => [...prev, obj])
+}
+console.log(cartItems);
+  return(
     <div className="wrapper clear">
-       {/* <Drawer />  */}
-      <Header />
+      {cartOpened &&  <Drawer items={cartItems} onClose={() => setCartOpened(false)} />}
+      <Header onClickCart={() => setCartOpened(true)}  />
       <div className="content p-40">
         <div className="d-flex align-center justify-between mb-40">
           <h1>Все кроссовки</h1>
@@ -26,14 +38,15 @@ function App() {
           </div>
         </div>
 
-        <div className="d-flex">
+        <div className="d-flex flex-wrap">
      
-      {arr.map((obj) =>(
+      {items.map((item) =>(
         <Card
-        title={obj.title}
-        price={obj.price}
-        imageUrl={obj.imageUrl}
-        onClick={() => console.log(obj)}
+        title={item.title}
+        price={item.price}
+        imageUrl={item.imageUrl}
+        onFavorite={() => console.log('Добавили в закладки')}
+        onPlus={onAddToCart}
         />
       ))}
         </div>

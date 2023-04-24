@@ -2,18 +2,25 @@ import React from "react";
 import cardStyles from './Card.module.scss';
 
 
- function  Card ({ title, imageUrl,  price, onFavorite, onPlus}){
+ function  Card ({id, title, imageUrl,  price, onFavorite, onPlus, favorited = false}){
   const [isAdded, setIsAdded] = React.useState(false);
+  const [isFavorite, setIsFavorite] = React.useState(favorited);
 
-  const onClickPlus = () =>{
-    onPlus({imageUrl,  title, price});
+
+  const onClickPlus = () => {
+    onPlus({ title, imageUrl, price});
     setIsAdded(!isAdded);
   }
- 
+  //  функция для отметки "сердца"
+  const onClickFavorite = () =>{
+    onFavorite({ title, imageUrl, price, id })
+    setIsFavorite(!isFavorite);
+  }
     return (
+      <>
       <div className={cardStyles.card}>
-        <div className={cardStyles.favorite} onClick={onFavorite}>
-          <img src="/img/unliked.svg" alt="unliked" />
+        <div className={cardStyles.favorite} onClick={onClickFavorite}>
+          <img src={isFavorite ? '/img/liked.svg' : "/img/unliked.svg"} alt="unliked"/>
         </div>
         <img width={133} height={112} src={imageUrl} alt="Sneakers"/>
         <h5>{title}</h5>
@@ -28,6 +35,7 @@ import cardStyles from './Card.module.scss';
             src={isAdded ? "/img/btn-checked.svg" : "img/btn-plus.svg"} alt="Plus" />
         </div>
       </div>
+      </>
     );
 }
 

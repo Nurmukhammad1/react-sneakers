@@ -46,7 +46,7 @@ header{
   }
 
   .greenButton{
-   width: 100%;
+   width: 245px;
    margin-top: 20px;
 
    &:hover{
@@ -70,10 +70,12 @@ header{
   border: 1px solid #f3f3f3;
   border-radius: 10px;
   padding: 0 15px;
-  align-items: center;
+  
   .clear{
     position: absolute;
-    width: 20px;
+    width: 18px;
+    right: 18px;
+    top:14px;
     right: 15px;
 
   }
@@ -97,16 +99,16 @@ header{
 }
 
 .drawer{
-  position: absolute;
-  width: 420px;
-  height: 100%;
-  right: 0;
-  top: 0;
-  background: #ffffff;
-  box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
-  padding: 30px;
- display: flex;
- flex-direction: column;
+   position: absolute;
+   width: 420px;
+   height: 100%;
+   right: 0;
+   top: 0;
+   background: #ffffff;
+   box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
+   padding: 30px;
+   display: flex;
+   flex-direction: column;
 
   h2{
     margin: 0;
@@ -140,21 +142,26 @@ header{
       }
     }
   }
+
  .greenButton{
   position: relative;
 
-  &:active{
-    img{
-      transform: translateX(5px);
+    &:disabled{
+      animation: button-loading 0.6s ease-in-out infinite;
     }
+
+    &:hover{
+      img{
+        transform: translateX(5px);
+      }
   }
  
-  img{
-    position: absolute;
-    right: 40px;
-    top: 22px;
-    transition: transform 0.15s ease-in-out;
-  }
+    img{
+      position: absolute;
+      right: 30px;
+      top: 20px;
+      transition: transform 0.15s ease-in-out;
+    }
  }
  
 }
@@ -169,17 +176,20 @@ header{
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s ease-in-out;
+  transition: background 0.1s ease-in-out;
 
- 
+    &:disabled{
+      background-color: #bebebe !important;
+      cursor: default;
+    }
 
-  &:hover{
-    background:  lighten(#9dd558, 5%);
-  }
+    &:hover{
+      background:  lighten(#9dd558, 5%);
+    }
 
-  &:active{
-    background: darken(#9dd558, 5%)
-  }
+    &:active{
+      background: darken(#9dd558, 5%)
+    }
 }
 
 
@@ -194,18 +204,18 @@ header{
     height: 70px;
     background-size: contain;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: 0 -3px;
     margin-right: 20px;
   }
 
-  p{
-    font-size: 16px;
-    margin: 0;
-  }
+    p{
+      font-size: 16px;
+      margin: 0;
+    }
 
-  b{
-    font-size: 14px;
-  }
+    b{
+      font-size: 14px;
+    }
 
   .removeBtn{
     opacity: 0.5;
@@ -218,3 +228,15 @@ header{
   }
 }
 
+@keyframes button-loading{
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+
+  100%{
+    opacity: 1;
+  }
+}

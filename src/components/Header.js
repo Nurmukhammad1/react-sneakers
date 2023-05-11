@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Header(props){
 
@@ -17,7 +17,7 @@ function Header(props){
           </Link>
 
           <ul className="d-flex">
-            <li className="mr-30 cu-p" onClick={props.onClickCart}>
+            <li onClick={props.onClickCart} className="mr-30 cu-p">
               <img width={18} height={18} src="/img/cart.svg" alt="Корзина" />
               <span>1205руб</span>
             </li>

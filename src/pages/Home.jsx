@@ -9,7 +9,7 @@ function Home({
     onChangeSearchInput,
     onAddToFavorite,
     onAddToCart,
-    isLoading
+    isLoading,
   }){
 
    const renderItems = () => {

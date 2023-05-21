@@ -1,6 +1,8 @@
 import React from "react";
 import ContentLoader from "react-content-loader";
+
 import AppContext from "../../context";
+
 import styles from './Card.module.scss';
 
 
@@ -16,19 +18,18 @@ import styles from './Card.module.scss';
  }) {
     const {isItemAdded} = React.useContext(AppContext);
    const [isFavorite, setIsFavorite] = React.useState(favorited);
-
+  const obj = {id, parentId: id, title, imageUrl, price};
 // функция по добавлении товаров (отметки плюсов) в корзину
    const onClickPlus = () => {
-     onPlus({ id, title, imageUrl, price });
+     onPlus(obj);
    };
 
    //  функция для отметки "favorites"
    const onClickFavorite = () => {
-     onFavorite({id,  title, imageUrl, price });
+     onFavorite(obj);
      setIsFavorite(!isFavorite);
    };
    return (
-     <div>
        <div className={styles.card}>
          {loading ? (
            // предварительная загрузочная анимация "скелетон"
@@ -49,12 +50,14 @@ import styles from './Card.module.scss';
          ) : (
            // Основной лендинг
            <>
-             <div className={styles.favorite} onClick={onClickFavorite}>
-               <img
-                 src={isFavorite ? "/img/liked.svg" : "/img/unliked.svg"}
-                 alt="unliked"
-               />
-             </div>
+             {onFavorite && (
+               <div className={styles.favorite} onClick={onClickFavorite}>
+                 <img
+                   src={isFavorite ? "/img/liked.svg" : "/img/unliked.svg"}
+                   alt="unliked"
+                 />
+               </div>
+             )}
              <img width="100%" height={135} src={imageUrl} alt="Sneakers" />
              <h5>{title}</h5>
              <div className="d-flex justify-between align-center">
@@ -62,19 +65,19 @@ import styles from './Card.module.scss';
                  <span>Цена:</span>
                  <b>{price} руб.</b>
                </div>
-               
-               <img
-                 className={styles.plus}
-                 onClick={onClickPlus}
-                 src={isItemAdded(id) ? '/img/btn-checked.svg' : '/img/btn-plus.svg'}
-                 alt="Plus"
-               />
-              
+
+               {onPlus && (
+                 <img
+                   className={styles.plus}
+                   onClick={onClickPlus}
+                   src={isItemAdded(id) ? '/img/btn-checked.svg' : '/img/btn-plus.svg'}
+                   alt="Plus"
+                 />
+               )}
              </div>
            </>
          )}
        </div>
-     </div>
    );
  }
 
